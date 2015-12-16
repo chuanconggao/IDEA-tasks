@@ -1,0 +1,7 @@
+{
+    "name": "topk",
+    "args": ["idStr", "content", "k", "minLen", "maxLen"],
+    "import": "topk",
+    "func": "getTopKTable",
+    "description": "Top-k sequential pattern"
+}

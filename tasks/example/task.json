@@ -1,0 +1,7 @@
+{
+    "name": "example",
+    "args": ["name"],
+    "import": "example",
+    "func": "hello",
+    "description": "Hello World"
+}

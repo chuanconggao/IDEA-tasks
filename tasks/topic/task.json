@@ -1,0 +1,7 @@
+{
+    "name": "topic",
+    "args": ["idStr", "content", "k", "wordNum"],
+    "import": "topic",
+    "func": "getTopicTable",
+    "description": "Topic Model"
+}
