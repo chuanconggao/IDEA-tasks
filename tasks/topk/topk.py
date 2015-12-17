@@ -9,7 +9,6 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     import subprocess
     import codecs
 
-    sys.path.append("../../")
     from config import dataDir, tasksDir
     from aux import print2
 

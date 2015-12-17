@@ -10,7 +10,6 @@ def getTopicTable(idStr, content, k, wordNum):
     import subprocess
     import codecs
 
-    sys.path.append("../../")
     from config import dataDir
     from aux import print2
 
