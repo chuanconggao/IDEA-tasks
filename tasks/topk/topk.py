@@ -47,7 +47,6 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
             "--maxlen=" + str(maxLen)
         ]
         output, _ = subprocess.Popen(" ".join(args), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-        print2(output)
 
         res = [
             tuple(p.split(' : '))

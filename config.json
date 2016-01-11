@@ -6,8 +6,8 @@
         "bin": "../bin"
     },
     "redis": {
-        "host": "idea.chuancong.me",
-        "password": "c3fe46ff861c2fef26071ab78cd67deaef9712385ae260c4e7720ceb9db6e7f2"
+        "host": "",
+        "password": ""
     }
 }
 
