@@ -4,6 +4,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import sys
+import os.path
 from functools import partial
 
 print2 = partial(print, file=sys.stderr)
@@ -13,3 +14,6 @@ def str2bool(s):
 
 def bool2str(s):
     return "true" if s else "false"
+
+def getcwd(task):
+    return os.path.join("tasks", task)
