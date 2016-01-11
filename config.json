@@ -2,7 +2,8 @@
     "tasksDir": "tasks",
     "storage": {
         "data": "../data",
-        "temp": "../temp"
+        "temp": "../temp",
+        "bin": "../bin"
     },
     "redis": {
         "host": "idea.chuancong.me",

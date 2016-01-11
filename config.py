@@ -10,6 +10,7 @@ with open("config.json") as f:
 
     dataDir = j["storage"]["data"]
     tempDir = j["storage"]["temp"]
+    binDir = j["storage"]["bin"]
 
     tasksDir = j["tasksDir"]
 

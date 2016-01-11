@@ -9,7 +9,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     import subprocess
     import codecs
 
-    from config import dataDir, tasksDir
+    from config import dataDir, tasksDir, binDir
     from aux import print2
 
     topKDir = os.path.join(dataDir, "topk")
@@ -39,14 +39,15 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
                 f.write('\n')
 
         args = [
-            "mono \"{}\"".format(os.path.join("bin", "TopKSeqPattMiner.exe")),
+            "mono \"{}\"".format(os.path.join(binDir, "topk", "TopKSeqPattMiner.exe")),
             "--in=\"{}\"".format(inputFileName),
-            "--stopwords=\"{}\"".format(os.path.join("bin", "stopwords.txt")),
+            "--stopwords=\"{}\"".format(os.path.join(binDir, "topk", "stopwords.txt")),
             "-k=" + str(k),
             "--minlen=" + str(minLen),
             "--maxlen=" + str(maxLen)
         ]
         output, _ = subprocess.Popen(" ".join(args), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        print2(output)
 
         res = [
             tuple(p.split(' : '))
