@@ -8,9 +8,9 @@ import json
 with open("config.json") as f:
     j = json.load(f)
 
+    binDir = j["storage"]["bin"]
     dataDir = j["storage"]["data"]
     tempDir = j["storage"]["temp"]
-    binDir = j["storage"]["bin"]
 
     tasksDir = j["tasksDir"]
 

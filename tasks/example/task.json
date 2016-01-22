@@ -1,6 +1,11 @@
 {
     "name": "example",
-    "args": ["name"],
+    "args": {
+        "name": {
+            "type": "str",
+            "optional": false
+        }
+    },
     "func": "hello",
     "description": "Hello World"
 }

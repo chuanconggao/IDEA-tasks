@@ -1,6 +1,21 @@
 {
     "name": "topic",
-    "args": ["idStr", "content", "k", "wordNum"],
+    "args": {
+        "idStr": {
+            "type": "str"
+        },
+        "content": {
+            "type": "[str]"
+        },
+        "k": {
+            "type": "uint",
+            "min": 1
+        },
+        "wordNum": {
+            "type": "uint",
+            "min": 1
+        }
+    },
     "func": "getTopicTable",
     "description": "Topic Model"
 }
