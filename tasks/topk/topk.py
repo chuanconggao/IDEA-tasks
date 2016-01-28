@@ -55,7 +55,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
 
         with codecs.open(outputFileName, 'w', 'utf-8', errors="ignore") as f:
             for i in res:
-                f.write(str(i[0]) + " : " + str(i[1]))
+                f.write("{} : {}".format(i[0], i[1]))
                 f.write('\n')
     else:
         with codecs.open(outputFileName, 'r', 'utf-8', errors="ignore") as f:
