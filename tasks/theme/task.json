@@ -1,0 +1,6 @@
+{
+    "name": "theme",
+    "args": ["idStr", "content", "themeDict"],
+    "func": "computeStat",
+    "description": "theme matching"
+}
