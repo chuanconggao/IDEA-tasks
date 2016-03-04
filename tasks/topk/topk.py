@@ -39,9 +39,9 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
                 f.write('\n')
 
         args = [
-            "mono \"{}\"".format(os.path.join(getcwd("topk"), "bin", "TopKSeqPattMiner.exe")),
-            "--in=\"{}\"".format(inputFileName),
-            "--stopwords=\"{}\"".format(os.path.join(getcwd("topk"), "bin", "stopwords.txt")),
+            "mono \'{}\'".format(os.path.join(getcwd("topk"), "bin", "TopKSeqPattMiner.exe")),
+            "--in=\'{}\'".format(inputFileName),
+            "--stopwords=\'{}\'".format(os.path.join(getcwd("topk"), "bin", "stopwords.txt")),
             "-k=" + str(k),
             "--minlen=" + str(minLen),
             "--maxlen=" + str(maxLen)
@@ -55,7 +55,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
 
         with codecs.open(outputFileName, 'w', 'utf-8', errors="ignore") as f:
             for i in res:
-                f.write(str(i[0]) + " : " + str(i[1]))
+                f.write("{} : {}".format(i[0], i[1]))
                 f.write('\n')
     else:
         with codecs.open(outputFileName, 'r', 'utf-8', errors="ignore") as f:

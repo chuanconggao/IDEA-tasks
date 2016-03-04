@@ -1,6 +1,26 @@
 {
     "name": "topk",
-    "args": ["idStr", "content", "k", "minLen", "maxLen"],
+    "args": {
+        "idStr": {
+            "type": "str"
+        },
+        "content": {
+            "type": "[str]"
+        },
+        "k": {
+            "type": "uint",
+            "min": 1
+        },
+        "minLen": {
+            "type": "uint",
+            "min": 1,
+            "default": 1
+        },
+        "maxLen": {
+            "type": "uint",
+            "min": 1
+        }
+    },
     "func": "getTopKTable",
     "description": "Top-k sequential pattern"
 }

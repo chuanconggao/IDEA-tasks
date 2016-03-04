@@ -29,7 +29,7 @@ def getTopicTable(idStr, content, k, wordNum):
     outputFileName = fileName + ".out"
 
     if not os.path.isfile(outputFileName):
-        print2("Modeling \"{}\" with: k={}, wordnum={}...".format(
+        print2("Modeling \'{}\' with: k={}, wordnum={}...".format(
             idStr, k, wordNum
         ))
 
@@ -40,19 +40,19 @@ def getTopicTable(idStr, content, k, wordNum):
 
         args = [
             "mallet import-file",
-            "--input \"{}\"".format(inputFileName),
-            "--output \"{}\"".format(malletFileName),
+            "--input \'{}\'".format(inputFileName),
+            "--output \'{}\'".format(malletFileName),
             "--keep-sequence", "--remove-stopwords"
         ]
         subprocess.Popen(" ".join(args), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
 
         args = [
             "mallet train-topics",
-            "--input \"{}\"".format(malletFileName),
+            "--input \'{}\'".format(malletFileName),
             "--num-topics " + str(k),
             "--num-top-words " + str(wordNum + 1),
             "--show-topics-interval 1000",
-            "--output-topic-keys \"{}\"".format(outputFileName)
+            "--output-topic-keys \'{}\'".format(outputFileName)
         ]
         subprocess.Popen(" ".join(args), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
 

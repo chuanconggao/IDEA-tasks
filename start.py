@@ -18,8 +18,7 @@ if __name__ == '__main__':
     new_env["PYTHONPATH"] = ":".join(os.path.join(tasksDir, t) for t in tasks)
 
     args = [
-        "rqworker",
-        "-u", "redis://:{}@{}:6379/".format(redisPassword, redisHost),
+        "rqworker", "-q", "-u", "redis://:{}@{}:6379/".format(redisPassword, redisHost),
     ] + [
         (redisQueuePrefix + t) for t in tasks
     ]
