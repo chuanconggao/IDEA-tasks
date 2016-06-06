@@ -8,7 +8,7 @@ def getTopicTable(idStr, content, k, wordNum):
     import os
     import re
     import subprocess
-    import codecs
+    from io import open
 
     from config import dataDir
     from aux import print2
@@ -33,7 +33,7 @@ def getTopicTable(idStr, content, k, wordNum):
             idStr, k, wordNum
         ))
 
-        with codecs.open(inputFileName, 'w', 'utf-8', errors="ignore") as f:
+        with open(inputFileName, 'w', encoding='utf-8', errors="ignore") as f:
             for i in content:
                 f.write(i)
                 f.write('\n')
@@ -59,7 +59,7 @@ def getTopicTable(idStr, content, k, wordNum):
     reFilter = re.compile(r"^\d+\t\d+(?:\.\d+)?\t", re.I | re.U)
 
     results = []
-    with codecs.open(outputFileName, 'r', 'utf-8', errors="ignore") as f:
+    with open(outputFileName, 'r', encoding='utf-8', errors="ignore") as f:
         for i in f:
             results.append(reFilter.sub("", i.rstrip()).split(' '))
 
