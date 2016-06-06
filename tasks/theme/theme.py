@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import, division, print_function, unicode_literals
+
 from collections import defaultdict, namedtuple
 import re
 
 Node = namedtuple('Node', 'child, category')
-spliter = re.compile('^[^\w@#/+-]+|\W*\s+[^\w@#/+-]*')
+spliter = re.compile(r'^[^\w@#/+-]+|\W*\s+[^\w@#/+-]*')
 
 def build(themeDict):
     root = Node({}, set())
@@ -19,18 +20,19 @@ def build(themeDict):
                 node = node.child[word]
             node.category.add(theme)
     return root
-    
+
 def search(root, content, themes):
     counter = {
-            t : {
-                "name": t,
-                "total": 0,
-                "articles": defaultdict(int)
-            } for t in themes}
+        t: {
+            "name": t,
+            "total": 0,
+            "articles": defaultdict(int)
+        } for t in themes
+    }
     for year, abstracts in content.items():
         for abstract in abstracts:
             matchThemes = _search(root, spliter.split(abstract))
-            for t, words in matchThemes.items():
+            for t in matchThemes:
                 counter[t]["total"] += 1
                 counter[t]["articles"][year] += 1
 
