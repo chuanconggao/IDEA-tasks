@@ -1,6 +1,14 @@
 {
     "name": "theme",
-    "args": ["idStr", "content", "themeDict"],
+    "args": {
+        "idStr": {
+            "type": "str"
+        },
+        "content": {
+        },
+        "themeDict": {
+        }
+    },
     "func": "computeStat",
-    "description": "theme matching"
+    "description": "Theme Matching"
 }
