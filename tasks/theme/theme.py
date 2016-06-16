@@ -39,7 +39,7 @@ def search(root, content, themeDict):
     counter = {
         t: {
             "total": 0,
-            "ranges": defaultdict(int)
+            "ranges": {textRange: 0 for textRange in content}
         } for t in themeDict
     }
 
