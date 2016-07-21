@@ -9,6 +9,7 @@ def getTopicTable(idStr, content, k, wordNum):
     import re
     import subprocess
     from io import open
+    import re
 
     from config import dataDir
     from aux import print2
@@ -28,6 +29,8 @@ def getTopicTable(idStr, content, k, wordNum):
     malletFileName = fileName + ".mallet"
     outputFileName = fileName + ".out"
 
+    cleaner = re.compile(r'\W+', re.U)
+
     if not os.path.isfile(outputFileName):
         print2("Modeling \'{}\' with: k={}, wordnum={}...".format(
             idStr, k, wordNum
@@ -35,7 +38,7 @@ def getTopicTable(idStr, content, k, wordNum):
 
         with open(inputFileName, 'w', encoding='utf-8', errors="ignore") as f:
             for i in content:
-                f.write(i)
+                f.write(cleaner.sub(' ', i))
                 f.write('\n')
 
         args = [
