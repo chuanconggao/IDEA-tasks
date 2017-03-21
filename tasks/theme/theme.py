@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from collections import defaultdict, namedtuple
+from collections import defaultdict, namedtuple, Counter
 import regex as re
 
 Node = namedtuple('Node', ['children', 'tags'])
@@ -22,7 +22,7 @@ def build(themeDict):
 
 def search(root, content, themeDict):
     def _search(root, words):
-        matched = set()
+        matched = Counter()
 
         for i in xrange(len(words)):
             node = root
@@ -32,7 +32,8 @@ def search(root, content, themeDict):
 
                 node = node.children[word]
 
-                matched |= node.tags
+                for tag in node.tags:
+                    matched[tag] += 1
 
         return matched
 
@@ -45,12 +46,12 @@ def search(root, content, themeDict):
 
     for textRange, texts in content.iteritems():
         for text in texts:
-            for t in _search(
+            for t, c in _search(
                     root,
                     [w for w in tokenizer.split(text) if len(w) > 0]
-                ):
-                counter[t]["total"] += 1
-                counter[t]["ranges"][textRange] += 1
+                ).iteritems():
+                counter[t]["total"] += c
+                counter[t]["ranges"][textRange] += c
 
     return counter
 
