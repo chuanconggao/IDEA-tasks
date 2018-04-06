@@ -1,65 +1,49 @@
 #!/usr/bin/env python3
 
 def getTopKTable(idStr, content, k, minLen, maxLen):
+    import re
     import os
-    import subprocess
 
-    from config import dataDir, tasksDir
+    from prefixspan.api import PrefixSpan
+
     from aux import print2, getcwd
 
-    topKDir = os.path.join(dataDir, "topk")
-    if not os.path.isdir(topKDir):
-        os.mkdir(topKDir)
+    print2("Mining \'{}\' with: k={}, minLen={}, maxLen={}...".format(
+        idStr, k, minLen, maxLen
+    ))
 
-    fileName = os.path.join(
-        topKDir,
-        "_".join([
-            idStr,
-            "k=" + str(k),
-            "minlen=" + str(minLen),
-            "maxlen=" + str(maxLen)
-        ])
-    )
-    inputFileName = fileName + ".in"
-    outputFileName = fileName + ".out"
+    with open(os.path.join(getcwd("topk"), "stopwords.txt")) as f:
+        stopwords = {w.strip().lower() for w in f}
 
-    if not os.path.isfile(outputFileName):
-        print2("Mining \"{}\" with: k={}, minlen={}, maxlen={}...".format(
-            idStr, k, minLen, maxLen
-        ))
+    cleaner = re.compile(r'\W+', re.U)
 
-        with open(inputFileName, 'w') as f:
-            for i in content:
-                f.write(i)
-                f.write('\n')
-
-        args = [
-            "mono \'{}\'".format(os.path.join(getcwd("topk"), "bin", "TopKSeqPattMiner.exe")),
-            "--in=\'{}\'".format(inputFileName),
-            "--stopwords=\'{}\'".format(os.path.join(getcwd("topk"), "bin", "stopwords.txt")),
-            "-k=" + str(k),
-            "--minlen=" + str(minLen),
-            "--maxlen=" + str(maxLen)
+    docs = [
+        [
+            w for w in cleaner.split(i.strip().lower())
+            if w != "" and w not in stopwords
         ]
-        output, _ = subprocess.Popen(" ".join(args), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        for i in content
+    ]
 
-        res = [
-            tuple(p.split(' : '))
-            for p in output.decode("utf-8").splitlines()
-        ][:k]
+    wordMap = {}
+    for doc in docs:
+        for w in doc:
+            wordMap.setdefault(w, len(wordMap))
 
-        with open(outputFileName, 'w') as f:
-            for i in res:
-                f.write("{} : {}".format(i[0], i[1]))
-                f.write('\n')
-    else:
-        with open(outputFileName) as f:
-            res = [
-                tuple(p.strip().split(' : '))
-                for p in f
-            ]
+    db = [
+        [wordMap[w] for w in doc]
+        for doc in docs
+    ]
+
+    ps = PrefixSpan(db)
+    ps.minlen = int(minLen)
+    ps.maxlen = int(maxLen)
+
+    results = ps.topk(int(k))
+
+    invWordMap = {v: k for k, v in wordMap.items()}
 
     return [
-        {"pattern" : p[0], "count" : int(p[1])}
-        for p in res
+        {"pattern" : [invWordMap[i] for i in patt], "count" : freq}
+        for (freq, patt) in sorted(results, reverse=True, key=lambda p: p[0])
     ]
