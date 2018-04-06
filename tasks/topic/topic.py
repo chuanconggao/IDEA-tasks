@@ -1,12 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import, division, print_function, unicode_literals
+#!/usr/bin/env python3
 
 def getTopicTable(idStr, content, k, wordNum):
     import re
     import os
-    from io import open
 
     import gensim
 

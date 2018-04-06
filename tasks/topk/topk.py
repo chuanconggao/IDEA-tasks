@@ -1,13 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import, division, print_function, unicode_literals
+#!/usr/bin/env python3
 
 def getTopKTable(idStr, content, k, minLen, maxLen):
-    import sys
     import os
     import subprocess
-    import codecs
 
     from config import dataDir, tasksDir
     from aux import print2, getcwd
@@ -33,7 +28,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
             idStr, k, minLen, maxLen
         ))
 
-        with codecs.open(inputFileName, 'w', 'utf-8', errors="ignore") as f:
+        with open(inputFileName, 'w') as f:
             for i in content:
                 f.write(i)
                 f.write('\n')
@@ -53,12 +48,12 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
             for p in output.decode("utf-8").splitlines()
         ][:k]
 
-        with codecs.open(outputFileName, 'w', 'utf-8', errors="ignore") as f:
+        with open(outputFileName, 'w') as f:
             for i in res:
                 f.write("{} : {}".format(i[0], i[1]))
                 f.write('\n')
     else:
-        with codecs.open(outputFileName, 'r', 'utf-8', errors="ignore") as f:
+        with open(outputFileName) as f:
             res = [
                 tuple(p.strip().split(' : '))
                 for p in f

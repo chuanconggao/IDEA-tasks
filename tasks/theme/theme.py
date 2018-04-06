@@ -1,9 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-
-from collections import defaultdict, namedtuple, Counter
+from collections import namedtuple, Counter
 import regex as re
 
 Node = namedtuple('Node', ['children', 'tags'])
@@ -11,7 +8,7 @@ tokenizer = re.compile(r'^[^\w@#/+-]+|\W*\s+[^\w@#/+-]*', re.U)
 
 def build(themeDict):
     root = Node({}, set())
-    for tag, phrases in themeDict.iteritems():
+    for tag, phrases in themeDict.items():
         for phrase in phrases:
             words = [w for w in tokenizer.split(phrase) if len(w) > 0]
             node = root
@@ -19,6 +16,7 @@ def build(themeDict):
                 node = node.children.setdefault(word, Node({}, set()))
             node.tags.add(tag)
     return root
+
 
 def search(root, content, themeDict):
     def _search(root, words):
@@ -37,6 +35,7 @@ def search(root, content, themeDict):
 
         return matched
 
+
     counter = {
         t: {
             "total": 0,
@@ -44,16 +43,23 @@ def search(root, content, themeDict):
         } for t in themeDict
     }
 
-    for textRange, texts in content.iteritems():
+    for textRange, texts in content.items():
         for text in texts:
             for t, c in _search(
                     root,
                     [w for w in tokenizer.split(text) if len(w) > 0]
-                ).iteritems():
+                ).items():
                 counter[t]["total"] += c
                 counter[t]["ranges"][textRange] += c
 
     return counter
 
+
 def computeStat(idStr, content, themeDict):
+    from aux import print2
+
+    print2("Theme \'{}\'".format(
+        idStr
+    ))
+
     return search(build(themeDict), content, themeDict)
