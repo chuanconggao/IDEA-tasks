@@ -44,6 +44,6 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     invWordMap = {v: k for k, v in wordMap.items()}
 
     return [
-        {"pattern" : [invWordMap[i] for i in patt], "count" : freq}
+        {"pattern" : ' '.join(invWordMap[i] for i in patt), "count" : freq}
         for (freq, patt) in sorted(results, reverse=True, key=lambda p: p[0])
     ]
