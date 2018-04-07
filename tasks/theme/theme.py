@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def computeStat(idStr, content, themeDict):
+    from tagstats.tagstats import index
     from tagstats import compute
 
     from aux import print2
@@ -17,8 +18,10 @@ def computeStat(idStr, content, themeDict):
         for tag in themeDict
     }
 
+    root = index(themeDict)
+
     for timeRange, texts in content.items():
-        for tag, freqs in compute(texts, themeDict).items():
+        for tag, freqs in compute(texts, themeDict, root).items():
             freq = sum(freqs)
             results[tag]["total"] += freq
             results[tag]["ranges"][timeRange] = freq

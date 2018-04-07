@@ -2,4 +2,4 @@ gensim>=3.4.0
 prefixspan>=0.1.2
 regex>=2018.2.21
 rq>=0.10.0
-tagstats>=0.1
+tagstats>=0.1.1
