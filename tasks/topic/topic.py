@@ -20,7 +20,7 @@ def getTopicTable(idStr, content, k, wordNum):
     docs = [
         [
             w for w in cleaner.split(i.strip().lower())
-            if w != "" and w not in stopwords
+            if len(w) > 1 and w not in stopwords
         ]
         for i in content
     ]
