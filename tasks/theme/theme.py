@@ -3,6 +3,7 @@
 def computeStat(idStr, content, themeDict):
     from tagstats.tagstats import index
     from tagstats import compute
+    from joblib import Parallel, delayed
 
     from aux import print2
 
@@ -20,8 +21,14 @@ def computeStat(idStr, content, themeDict):
 
     root = index(themeDict)
 
-    for timeRange, texts in content.items():
-        for tag, freqs in compute(texts, themeDict, root).items():
+    for timeRange, stats in zip(
+            content,
+            Parallel(n_jobs=4)(
+                delayed(compute)(texts, themeDict, root)
+                for timeRange, texts in content.items()
+            )
+        ):
+        for tag, freqs in stats.items():
             freq = sum(freqs)
             results[tag]["total"] += freq
             results[tag]["ranges"][timeRange] = freq
