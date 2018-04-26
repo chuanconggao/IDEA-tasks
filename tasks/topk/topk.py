@@ -39,7 +39,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     ps.minlen = int(minLen)
     ps.maxlen = int(maxLen)
 
-    results = ps.topk(int(k))
+    results = ps.topk(int(k), closed=True)
 
     invWordMap = {v: k for k, v in wordMap.items()}
 
