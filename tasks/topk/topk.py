@@ -4,7 +4,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     import re
     import os
 
-    from prefixspan.api import PrefixSpan
+    from prefixspan import PrefixSpan
 
     from aux import print2, getcwd
 
@@ -26,12 +26,9 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     ]
 
     wordMap = {}
-    for doc in docs:
-        for w in doc:
-            wordMap.setdefault(w, len(wordMap))
 
     db = [
-        [wordMap[w] for w in doc]
+        [wordMap.setdefault(w, len(wordMap)) for w in doc]
         for doc in docs
     ]
 
