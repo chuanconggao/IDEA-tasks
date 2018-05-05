@@ -1,4 +1,4 @@
-extratools>=0.2.8
+extratools>=0.5
 gensim>=3.4.0
 joblib>=0.11
 prefixspan>=0.3

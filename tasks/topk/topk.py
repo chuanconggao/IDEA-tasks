@@ -5,7 +5,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
     import os
 
     from prefixspan import PrefixSpan
-    from extratools.dicttools import invertdict, remap
+    from extratools.dicttools import invert, remap
 
     from aux import print2, getcwd
 
@@ -36,7 +36,7 @@ def getTopKTable(idStr, content, k, minLen, maxLen):
 
     results = ps.topk(int(k), closed=True)
 
-    invWordMap = invertdict(wordMap)
+    invWordMap = invert(wordMap)
 
     return [
         {"pattern" : ' '.join(invWordMap[i] for i in patt), "count" : freq}
